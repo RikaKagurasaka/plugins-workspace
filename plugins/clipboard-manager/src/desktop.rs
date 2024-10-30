@@ -84,7 +84,11 @@ impl<R: Runtime> Clipboard<R> {
         match &self.clipboard {
             Ok(clipboard) => {
                 let image = clipboard.lock().unwrap().get_image()?;
-                let image = Image::new_owned(image.bytes.to_vec(), image.width as u32, image.height as u32);
+                let image = Image::new_owned(
+                    image.bytes.to_vec(),
+                    image.width as u32,
+                    image.height as u32,
+                );
                 Ok(image)
             }
             Err(e) => Err(crate::Error::Clipboard(e.to_string())),
